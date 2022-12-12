@@ -520,7 +520,7 @@
     var northEast = map.unproject([4096, 0], map.getMaxZoom());
     map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
 
-    L.tileLayer("./tile_images/tile_{z}-{x}-{y}.png", {
+    L.tileLayer("./images/tile_images/tile_{z}-{x}-{y}.png", {
       minZoom: 0,
       maxZoom: 3,
       noWrap: true,
@@ -530,7 +530,7 @@
     var layPokeFilter = L.featureGroup(); // pokemon search results are displayed on this layer
     var layPokeball = L.layerGroup();
     var pokeballIcon = L.icon({
-      iconUrl: "./pokeball.png",
+      iconUrl: "./images/pokeball.png",
       iconSize: [32, 32], // size of the icon
       iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
     });
