@@ -648,18 +648,18 @@
       var rank = 0;
       for (var i in areaIndexList) {
         var dict = areaIndexList[i];
-        for (var serebii_id in dict) {
-          var types = dict[serebii_id];
+        for (var pmarkeridx in dict) {
+          var types = dict[pmarkeridx];
 
-          L.marker(cvert(pmarkers[serebii_id].coords), {
-            icon: pmarkers[serebii_id].icon,
-            tableID: pmarkers[serebii_id].tableId,
+          L.marker(cvert(pmarkers[pmarkeridx].coords), {
+            icon: pmarkers[pmarkeridx].icon,
+            tableID: pmarkers[pmarkeridx].tableId,
           })
             .addTo(layPokeFilter)
             .bindTooltip(types);
           if (drawRank == true) {
-            L.marker(cvert(pmarkers[serebii_id].coords), {
-              tableID: pmarkers[serebii_id].tableId,
+            L.marker(cvert(pmarkers[pmarkeridx].coords), {
+              tableID: pmarkers[pmarkeridx].tableId,
               icon: new L.DivIcon({
                 iconAnchor: L.point(5, 17),
                 className: "my-div-icon",
