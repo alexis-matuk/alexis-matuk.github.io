@@ -670,7 +670,6 @@
               }),
             })
               .addTo(layPokeFilter)
-              .on("click", onMapClick)
               .bindTooltip(types);
           }
         }
@@ -685,32 +684,6 @@
 
         return [y, x]; //Coordinates in CRS.Simple take the form of [y, x]
       }
-
-      function onMapClick(e) {
-			const tableID = e.target.options.tableID;
-
-			if (!tableID) {
-				e.target.bindPopup("Pok&eacute;mon to load not set").openPopup();
-				return;
-			}
-
-			var xhr = new XMLHttpRequest();
-			xhr.open(
-					"GET",
-					"/pokearth/paldea/spawntable/" + tableID + ".txt",
-					true
-				);
-			xhr.send(null);
-			xhr.onload = function() {
-				if (xhr.status === 200 && xhr.responseText.length > 0) {
-					document.getElementById("table-popup").innerHTML = xhr.responseText;
-				} else {
-					e.target
-						.bindPopup("Unable to properly load Pok&eacute;mon information")
-						.openPopup();
-				}
-			};
-		}
 
       layPokeFilter.addTo(map);
       return false;
