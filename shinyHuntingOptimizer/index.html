@@ -568,11 +568,13 @@
         var pokemonName = e.params.data.id;
         $("#currently_hunting").text("Currently Hunting: " + e.params.data.text);
         pokeToggleCustom(pokemon_calculated[pokemonName], true);
+        $('#type-select').select2("val", "0");
       });
       $("#type-select").on("select2:select", function (e) {
         var pokemonType = e.params.data.id;
         $("#currently_hunting").text("Currently Hunting: " + e.params.data.text + " Type Pokemon");
         pokeToggleCustom(type_success[pokemonType], false);
+        $('#poke-select').select2("val", "0");
       });
     });
 
