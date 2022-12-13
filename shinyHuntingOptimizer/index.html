@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>
-      Shiny Hunting Optimizer
-    </title>
-    <link rel="icon" href="https://thumbnail.imgbin.com/4/12/16/imgbin-white-shiny-stars-5aS4Ba6s4jPdCYUXhxH8prV1m_t.jpg" type="image/x-icon"></link>
+    <title>Shiny Hunting Optimizer</title>
+    <link
+      rel="icon"
+      href="https://thumbnail.imgbin.com/4/12/16/imgbin-white-shiny-stars-5aS4Ba6s4jPdCYUXhxH8prV1m_t.jpg"
+      type="image/x-icon"
+    />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
       crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/MrMufflon/Leaflet.Coordinates@master/dist/Leaflet.Coordinates-0.1.5.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/MrMufflon/Leaflet.Coordinates@master/dist/Leaflet.Coordinates-0.1.5.css"
     />
     <link
       rel="stylesheet"
@@ -17,11 +32,6 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-      crossorigin=""
-    ></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -37,46 +47,61 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47L78G5C38"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-47L78G5C38"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-47L78G5C38');
+      gtag("config", "G-47L78G5C38");
     </script>
-    <style>      
-      .dark_mode_bg{
-        background-color:#222;
+    <style>
+      .dark_mode_bg {
+        background-color: #383838;
       }
-      .dark_mode_text{
-        color:white;
+      .dark_mode_text {
+        color: white;
       }
-        
+
       .leaflet-container {
         height: 800px;
+        max-height: 100vh;
         width: 100%;
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 1024px;
       }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-end">
-        <div class="row">
-          <div class="col">
-            Dark Mode 
-            <input type="checkbox" id="toggle_dark_mode" data-toggle="toggle" data-onstyle="primary" data-offstyle="secondary">
-          </div>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-end"
+    >
+      <div class="row">
+        <div class="col">
+          Dark Mode
+          <input
+            type="checkbox"
+            id="toggle_dark_mode"
+            data-toggle="toggle"
+            data-onstyle="primary"
+            data-offstyle="secondary"
+          />
         </div>
+      </div>
     </nav>
     <div class="container-fluid">
-      
       <div id="title" class="row justify-content-center mb-4">
-        <h1>Isolated Encounter Shiny Hunting Optimizer</h1>
+        <h1 class="px-4">Isolated Encounter Shiny Hunting Optimizer</h1>
       </div>
       <div id="intro" class="row justify-content-center mb-4">
         <div class="col-md-4">
@@ -106,22 +131,27 @@
         <div class="col-md-4">
           <ol>
             <b>Find Efficiency of Type (beta)</b>
+            <li>Pick a type from the dropdown menu.</li>
             <li>
-              Pick a type from the dropdown menu.
+              The map will show every area that has one pokemon with 100%
+              efficiency for the type you picked.
             </li>
             <li>
-              The map will show every area that has one pokemon with 100% efficiency for the type you picked.
-            </li>
-            <li>
-              This is most useful if you want to target a type for multiple pokemon during one sandwich.
+              This is most useful if you want to target a type for multiple
+              pokemon during one sandwich.
             </li>
           </ol>
           <p></p>
         </div>
       </div>
       <div class="row justify-content-center mb-4">
-        <div class="col-md-4 justify-content-center text-center">
-          <select id="poke-select" class="js-example-basic-single" style="width: 50%" name="pokemon">
+        <div class="col-md-4 justify-content-center text-center mb-4">
+          <select
+            id="poke-select"
+            class="js-example-basic-single"
+            style="width: 50%"
+            name="pokemon"
+          >
             <option></option>
             <option value="sprigatito">1. Sprigatito</option>
             <option value="floragato">2. Floragato</option>
@@ -526,7 +556,12 @@
           </select>
         </div>
         <div class="col-md-4 justify-content-center text-center">
-          <select id="type-select" class="js-example-basic-single" style="width: 50%" name="type">
+          <select
+            id="type-select"
+            class="js-example-basic-single"
+            style="width: 50%"
+            name="type"
+          >
             <option></option>
             <option value="bug">Bug</option>
             <option value="grass">Grass</option>
@@ -546,7 +581,6 @@
             <option value="dragon">Dragon</option>
             <option value="steel">Steel</option>
             <option value="ice">Ice</option>
-            
           </select>
         </div>
       </div>
@@ -555,20 +589,33 @@
           <h4 id="currently_hunting"></h4>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div id="map"></div>
+      <div class="row justify-content-center text-center">
+        <div class="col-md-6 justify-content-center text-center">
+          <div id="map" style="margin: auto"></div>
         </div>
       </div>
       <div id="disclaimer" class="row justify-content-center">
         <p>
-          All of the raw data was obtained from 
-          <a href="https://www.serebii.net">https://www.serebii.net</a>, used for calculations and redrawn on their map. 
+          All of the raw data was obtained from
+          <a href="https://www.serebii.net">https://www.serebii.net</a>, used
+          for calculations and redrawn on their map.
         </p>
       </div>
       <div class="row justify-content-center mb-5">
         <footer>
-          <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="DonReptar" data-color="#40DCA5" data-emoji="👀" data-font="Lato" data-text="Click to Donate" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+          <script
+            type="text/javascript"
+            src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+            data-name="bmc-button"
+            data-slug="DonReptar"
+            data-color="#40DCA5"
+            data-emoji="👀"
+            data-font="Lato"
+            data-text="Click to Donate"
+            data-outline-color="#000000"
+            data-font-color="#ffffff"
+            data-coffee-color="#FFDD00"
+          ></script>
         </footer>
       </div>
     </div>
@@ -577,60 +624,104 @@
     $(document).ready(function () {
       $(".js-example-basic-single").select2();
       $("#poke-select").select2({
-        placeholder: 'Select a pokemon'
+        placeholder: "Select a pokemon",
       });
       $("#type-select").select2({
-        placeholder: 'Select a type'
+        placeholder: "Select a type",
       });
       $("#poke-select").on("select2:select", function (e) {
         var pokemonName = e.params.data.id;
-        $("#currently_hunting").text("Currently Hunting: " + e.params.data.text);
+        $("#currently_hunting").text(
+          "Currently Hunting: " + e.params.data.text
+        );
         pokeToggleCustom(pokemon_calculated[pokemonName], true);
-        $('#type-select').select2("val", "0");
+        $("#type-select").select2("val", "0");
       });
       $("#type-select").on("select2:select", function (e) {
         var pokemonType = e.params.data.id;
-        $("#currently_hunting").text("Currently Hunting: " + e.params.data.text + " Type Pokemon");
+        $("#currently_hunting").text(
+          "Currently Hunting: " + e.params.data.text + " Type Pokemon"
+        );
         pokeToggleCustom(type_success[pokemonType], false);
-        $('#poke-select').select2("val", "0");
+        $("#poke-select").select2("val", "0");
       });
     });
 
-    $(function() {
-    $('#toggle_dark_mode').change(function() {
-      var checked = $(this).prop('checked');
-      if (checked){
-        $('body').addClass("dark_mode_bg");
-        $('#title').addClass("dark_mode_text");
-        $('#intro').addClass("dark_mode_text");
-        $('#disclaimer').addClass("dark_mode_text");
-      }
-      else{
-        $('body').removeClass("dark_mode_bg");
-        $('#title').removeClass("dark_mode_text");
-        $('#intro').removeClass("dark_mode_text");
-        $('#disclaimer').removeClass("dark_mode_text");
-      }
-    })
-  })
+    $(function () {
+      $("#toggle_dark_mode").change(function () {
+        var checked = $(this).prop("checked");
+        if (checked) {
+          $("body").addClass("dark_mode_bg");
+          $("#title").addClass("dark_mode_text");
+          $("#intro").addClass("dark_mode_text");
+          $("#disclaimer").addClass("dark_mode_text");
+        } else {
+          $("body").removeClass("dark_mode_bg");
+          $("#title").removeClass("dark_mode_text");
+          $("#intro").removeClass("dark_mode_text");
+          $("#disclaimer").removeClass("dark_mode_text");
+        }
+      });
+    });
 
     // Initialize the map
     var map = L.map("map", {
-      minZoom: 0,
+      minZoom: 1,
       maxZoom: 3,
       crs: L.CRS.Simple,
     }).setView([0, 0], 1); //setView([lat, long], default zoom level)
+
+    var showCoord = L.control.coordinates({
+      position: "bottomleft",
+      customLabelFcn: function (latLonObj, opts) {
+        var y = latLonObj.lng;
+        var x = latLonObj.lat;
+        return (
+          "Z:" +
+          map.getZoom() +
+          "&nbsp;&nbsp;Y:" +
+          y.toFixed(1) +
+          "&nbsp;&nbsp;X:" +
+          x.toFixed(1)
+        );
+      },
+    });
+    showCoord.addTo(map);
+
+    if (typeof Number.prototype.toRad === "undefined") {
+      Number.prototype.toRad = function () {
+        return (this * Math.PI) / 180;
+      };
+    }
+
+    function getTileURL(lat, lon, zoom) {
+      let xtile = parseInt(Math.floor(((lon + 180) / 360) * (1 << zoom)));
+      let ytile = parseInt(
+        Math.floor(
+          ((1 -
+            Math.log(Math.tan(lat.toRad()) + 1 / Math.cos(lat.toRad())) /
+              Math.PI) /
+            2) *
+            (1 << zoom)
+        )
+      );
+      return zoom + "/" + xtile + "/" + ytile;
+    }
 
     var southWest = map.unproject([0, 4096], map.getMaxZoom());
     var northEast = map.unproject([4096, 0], map.getMaxZoom());
     map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
 
-    L.tileLayer("https://www.serebii.net/pokearth/paldea/map/tile_{z}-{x}-{y}.png", {
-      minZoom: 0,
-      maxZoom: 3,
-      noWrap: true,
-      attribution: "Pok&eacute;mon Scarlet & Violet", //map label in bottom right
-    }).addTo(map);
+    L.tileLayer(
+      "https://www.serebii.net/pokearth/paldea/map/tile_{z}-{x}-{y}.png",
+      {
+        minZoom: 0,
+        maxZoom: 3,
+        noWrap: true,
+        reuseTiles: true,
+        attribution: "Pok&eacute;mon Scarlet & Violet", //map label in bottom right
+      }
+    ).addTo(map);
 
     var layPokeFilter = L.featureGroup(); // pokemon search results are displayed on this layer
     var pokeballIcon = L.icon({
@@ -639,12 +730,14 @@
       iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
     });
     var violetIcon = L.icon({
-      iconUrl: "https://www.serebii.net/pokearth/hisui/icons/violetpokeball.png",
+      iconUrl:
+        "https://www.serebii.net/pokearth/hisui/icons/violetpokeball.png",
       iconSize: [32, 32], // size of the icon
       iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
     });
     var scarletIcon = L.icon({
-      iconUrl: "https://www.serebii.net/pokearth/hisui/icons/scarletpokeball.png",
+      iconUrl:
+        "https://www.serebii.net/pokearth/hisui/icons/scarletpokeball.png",
       iconSize: [32, 32], // size of the icon
       iconAnchor: [16, 16], // point of the icon which will correspond to marker's location
     });
@@ -726,10 +819,9 @@
       layPokeFilter.addTo(map);
       return false;
     }
-
   </script>
-  <script type="text/javascript" src="./js/pmarkers.js"> </script>
-  <script type="text/javascript" src="./js/pokemon_calculated.js"> </script>
-  <script type="text/javascript" src="./js/type_success.js"> </script>
-  <script type="text/javascript" src="./js/version_exclusive_sets.js"> </script>
+  <script type="text/javascript" src="./js/pmarkers.js"></script>
+  <script type="text/javascript" src="./js/pokemon_calculated.js"></script>
+  <script type="text/javascript" src="./js/type_success.js"></script>
+  <script type="text/javascript" src="./js/version_exclusive_sets.js"></script>
 </html>
