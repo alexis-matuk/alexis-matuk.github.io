@@ -88,12 +88,12 @@
     >
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html"
+          <a id="home_button" class="nav-link" href="#"
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="changelog.html"
+          <a id="changelog_button" class="nav-link" href="#"
             >Changelog <span class="sr-only"></span
           ></a>
         </li>
@@ -111,7 +111,7 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
+    <div id="home_content" class="container-fluid">
       <div id="title" class="row justify-content-center mb-4">
         <h1 class="px-4">Isolated Encounter Shiny Hunting Optimizer</h1>
       </div>
@@ -631,6 +631,86 @@
         </footer>
       </div>
     </div>
+    <div id="changelog_content" class="container-fluid">
+      <div id="changelog_title" class="row justify-content-center mb-4">
+        <h1 class="px-4">Changelog</h1>
+      </div>
+      <div id="changelog_body" class="row justify-content-center mb-4">
+        <div class="col-md-8">
+          <div class="row mb-4">
+            <h3>2.1.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>
+                Navbar loads the content of each tab without reloading page.
+              </li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>2.0.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>
+                Changed spawn pools. All version exclusives and shared pokemon
+                are in one pool but paradox are still in separate pool.
+                <a
+                  href="https://www.reddit.com/r/ShinyPokemon/comments/zk8m05/comment/j02iq4b/?utm_source=share&utm_medium=web2x&context=3"
+                  >Thanks to u/BadAimBoy for pointing this out</a
+                >
+              </li>
+              <li>Added changelog</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.1.1</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>Fixed map layout.</li>
+              <li>Fixed typos</li>
+              <li>Improve select UX.</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.1.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>Dark mode.</li>
+              <li>Different icons for pokemon exclusives.</li>
+              <li>Type efficiency visualization</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.0.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>First version released of the map released.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-5">
+        <footer>
+          <script
+            type="text/javascript"
+            src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+            data-name="bmc-button"
+            data-slug="DonReptar"
+            data-color="#40DCA5"
+            data-emoji="👀"
+            data-font="Lato"
+            data-text="Click to Donate"
+            data-outline-color="#000000"
+            data-font-color="#ffffff"
+            data-coffee-color="#FFDD00"
+          ></script>
+        </footer>
+      </div>
+    </div>
   </body>
   <script>
     $(document).ready(function () {
@@ -657,6 +737,19 @@
         pokeToggleCustom(type_success[pokemonType], false);
         $("#poke-select").select2("val", "0");
       });
+
+      $("#changelog_content").hide();
+      $("#home_button").on("click", function (event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        $("#home_content").show();
+        $("#changelog_content").hide();
+      });
+
+      $("#changelog_button").on("click", function (event) {
+        event.preventDefault(); // To prevent following the link (optional)
+        $("#changelog_content").show();
+        $("#home_content").hide();
+      });
     });
 
     $(function () {
@@ -667,11 +760,15 @@
           $("#title").addClass("dark_mode_text");
           $("#intro").addClass("dark_mode_text");
           $("#disclaimer").addClass("dark_mode_text");
+          $("#changelog_title").addClass("dark_mode_text");
+          $("#changelog_body").addClass("dark_mode_text");
         } else {
           $("body").removeClass("dark_mode_bg");
           $("#title").removeClass("dark_mode_text");
           $("#intro").removeClass("dark_mode_text");
           $("#disclaimer").removeClass("dark_mode_text");
+          $("#changelog_title").removeClass("dark_mode_text");
+          $("#changelog_body").removeClass("dark_mode_text");
         }
       });
     });
