@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shiny Hunting Optimizer</title>
+    <link
+      rel="icon"
+      href="https://thumbnail.imgbin.com/4/12/16/imgbin-white-shiny-stars-5aS4Ba6s4jPdCYUXhxH8prV1m_t.jpg"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/MrMufflon/Leaflet.Coordinates@master/dist/Leaflet.Coordinates-0.1.5.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/MrMufflon/Leaflet.Coordinates@master/dist/Leaflet.Coordinates-0.1.5.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-47L78G5C38"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-47L78G5C38");
+    </script>
+    <style>
+      .dark_mode_bg {
+        background-color: #383838;
+      }
+      .dark_mode_text {
+        color: white;
+      }
+
+      .leaflet-container {
+        height: 800px;
+        max-height: 100vh;
+        width: 100%;
+        max-width: 1024px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-end"
+    >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="changelog.html"
+            >Changelog <span class="sr-only"></span
+          ></a>
+        </li>
+      </ul>
+      <div class="row">
+        <div class="col">
+          Dark Mode
+          <input
+            type="checkbox"
+            id="toggle_dark_mode"
+            data-toggle="toggle"
+            data-onstyle="primary"
+            data-offstyle="secondary"
+          />
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div id="title" class="row justify-content-center mb-4">
+        <h1 class="px-4">Changelog</h1>
+      </div>
+      <div id="intro" class="row justify-content-center mb-4">
+        <div class="col-md-8">
+          <div class="row mb-4">
+            <h3>2.0.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>
+                Changed spawn pools. All version exclusives and shared pokemon
+                are in one pool but paradox are still in separate pool.
+                <a
+                  href="https://www.reddit.com/r/ShinyPokemon/comments/zk8m05/comment/j02iq4b/?utm_source=share&utm_medium=web2x&context=3"
+                  >Thanks to u/BadAimBoy for pointing this out</a
+                >
+              </li>
+              <li>Added changelog</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.1.1</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>Fixed map layout.</li>
+              <li>Fixed typos</li>
+              <li>Improve select UX.</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.1.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>Dark mode.</li>
+              <li>Different icons for pokemon exclusives.</li>
+              <li>Type efficiency visualization</li>
+            </ul>
+          </div>
+          <div class="row mb-4">
+            <h3>1.0.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>First version released of the map released.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-5">
+        <footer>
+          <script
+            type="text/javascript"
+            src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+            data-name="bmc-button"
+            data-slug="DonReptar"
+            data-color="#40DCA5"
+            data-emoji="👀"
+            data-font="Lato"
+            data-text="Click to Donate"
+            data-outline-color="#000000"
+            data-font-color="#ffffff"
+            data-coffee-color="#FFDD00"
+          ></script>
+        </footer>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+      $(".js-example-basic-single").select2();
+      $("#poke-select").select2({
+        placeholder: "Select a pokemon",
+      });
+      $("#type-select").select2({
+        placeholder: "Select a type",
+      });
+      $("#poke-select").on("select2:select", function (e) {
+        var pokemonName = e.params.data.id;
+        $("#currently_hunting").text(
+          "Currently Hunting: " + e.params.data.text
+        );
+        pokeToggleCustom(pokemon_calculated[pokemonName], true);
+        $("#type-select").select2("val", "0");
+      });
+      $("#type-select").on("select2:select", function (e) {
+        var pokemonType = e.params.data.id;
+        $("#currently_hunting").text(
+          "Currently Hunting: " + e.params.data.text + " Type Pokemon"
+        );
+        pokeToggleCustom(type_success[pokemonType], false);
+        $("#poke-select").select2("val", "0");
+      });
+    });
+
+    $(function () {
+      $("#toggle_dark_mode").change(function () {
+        var checked = $(this).prop("checked");
+        if (checked) {
+          $("body").addClass("dark_mode_bg");
+          $("#title").addClass("dark_mode_text");
+          $("#intro").addClass("dark_mode_text");
+          $("#disclaimer").addClass("dark_mode_text");
+        } else {
+          $("body").removeClass("dark_mode_bg");
+          $("#title").removeClass("dark_mode_text");
+          $("#intro").removeClass("dark_mode_text");
+          $("#disclaimer").removeClass("dark_mode_text");
+        }
+      });
+    });
+  </script>
+</html>

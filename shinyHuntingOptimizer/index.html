@@ -86,6 +86,18 @@
     <nav
       class="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-end"
     >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html"
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="changelog.html"
+            >Changelog <span class="sr-only"></span
+          ></a>
+        </li>
+      </ul>
       <div class="row">
         <div class="col">
           Dark Mode
@@ -776,19 +788,18 @@
 
       var rank = 0;
       for (var i in areaIndexList) {
-        var dict = areaIndexList[i];
-        for (var pmarkeridx in dict) {
-          var types = dict[pmarkeridx];
-
-          L.marker(cvert(pmarkers[pmarkeridx].coords), {
-            icon: pmarkers[pmarkeridx].icon,
-            tableID: pmarkers[pmarkeridx].tableId,
+        var area_id_eff_dict = areaIndexList[i];
+        for (var pmarker_area_id in area_id_eff_dict) {
+          var types = area_id_eff_dict[pmarker_area_id];
+          L.marker(cvert(pmarkers[pmarker_area_id].coords), {
+            icon: pmarkers[pmarker_area_id].icon,
+            tableID: pmarkers[pmarker_area_id].tableId,
           })
             .addTo(layPokeFilter)
             .bindTooltip(types);
           if (drawRank == true) {
-            L.marker(cvert(pmarkers[pmarkeridx].coords), {
-              tableID: pmarkers[pmarkeridx].tableId,
+            L.marker(cvert(pmarkers[pmarker_area_id].coords), {
+              tableID: pmarkers[pmarker_area_id].tableId,
               icon: new L.DivIcon({
                 iconAnchor: L.point(5, 17),
                 className: "my-div-icon",
