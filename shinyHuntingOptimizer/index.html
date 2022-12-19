@@ -38,6 +38,11 @@
       crossorigin="anonymous"
     ></script>
     <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
       integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
       crossorigin="anonymous"
@@ -115,6 +120,23 @@
       <div id="title" class="row justify-content-center mb-4">
         <h1 class="px-4">Isolated Encounter Shiny Hunting Optimizer</h1>
       </div>
+      <div class="row justify-content-center mb-4">
+        <b>0. Select game version</b>
+      </div>
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 justify-content-center text-center">
+          <select
+            id="version-select"
+            class="js-example-basic-single"
+            style="width: 50%"
+            name="type"
+          >
+            <option></option>
+            <option value="violet">Violet</option>
+            <option value="scarlet">Scarlet</option>
+          </select>
+        </div>
+      </div>
       <div id="intro" class="row justify-content-center mb-4">
         <div class="col-md-4">
           <ol>
@@ -157,7 +179,13 @@
         </div>
       </div>
       <div class="row justify-content-center mb-4">
-        <div class="col-md-4 justify-content-center text-center mb-4">
+        <div
+          class="col-md-4 justify-content-center text-center mb-4"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Choose game version first"
+          id="poke-select-tooltip"
+        >
           <select
             id="poke-select"
             class="js-example-basic-single"
@@ -567,7 +595,13 @@
             <option value="miraidon">400. Miraidon</option>
           </select>
         </div>
-        <div class="col-md-4 justify-content-center text-center">
+        <div
+          class="col-md-4 justify-content-center text-center"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Choose game version first"
+          id="type-select-tooltip"
+        >
           <select
             id="type-select"
             class="js-example-basic-single"
@@ -637,6 +671,17 @@
       </div>
       <div id="changelog_body" class="row justify-content-center mb-4">
         <div class="col-md-8">
+          <div class="row mb-4">
+            <h3>2.2.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>
+                Split pools for scarlet and violet and added select for version.
+                Type efficiency calculations should be as accurate as possible.
+              </li>
+            </ul>
+          </div>
           <div class="row mb-4">
             <h3>2.1.1</h3>
           </div>
@@ -722,6 +767,12 @@
   </body>
   <script>
     $(document).ready(function () {
+      $(document).on("shown.bs.tooltip", function (e) {
+        setTimeout(function () {
+          $(e.target).tooltip("dispose");
+        }, 1000);
+      });
+
       $(".js-example-basic-single").select2();
       $("#poke-select").select2({
         placeholder: "Select a pokemon",
@@ -729,21 +780,59 @@
       $("#type-select").select2({
         placeholder: "Select a type",
       });
-      $("#poke-select").on("select2:select", function (e) {
-        var pokemonName = e.params.data.id;
-        $("#currently_hunting").text(
-          "Currently Hunting: " + e.params.data.text
-        );
-        pokeToggleCustom(pokemon_calculated[pokemonName], true);
-        $("#type-select").select2("val", "0");
+      $("#version-select").select2({
+        placeholder: "Select version",
       });
+
+      $("#version-select").on("change", function (e) {
+        $("#poke-select").trigger("select2:select");
+        $("#type-select").trigger("select2:select");
+      });
+
+      $("#poke-select").on("select2:select", function (e) {
+        var selectedVersion = $("#version-select").select2("data")[0].id;
+        if (selectedVersion === "") {
+          $("#poke-select-tooltip").tooltip("show");
+          $("#poke-select").val(null).trigger("change");
+        } else {
+          //var pokemonName = e.params.data.id;
+          var pokemonName = $(this).val();
+          if (pokemonName !== "" && pokemonName) {
+            $("#currently_hunting").text(
+              "Currently Hunting: " + $("#poke-select").select2("data")[0].text
+            );
+            if (selectedVersion === "scarlet") {
+              pokeToggleCustom(pokemon_calculated_scarlet[pokemonName], true);
+            } else {
+              pokeToggleCustom(pokemon_calculated_violet[pokemonName], true);
+            }
+            $("#type-select").select2("val", "0");
+          }
+        }
+      });
+
       $("#type-select").on("select2:select", function (e) {
-        var pokemonType = e.params.data.id;
-        $("#currently_hunting").text(
-          "Currently Hunting: " + e.params.data.text + " Type Pokemon"
-        );
-        pokeToggleCustom(type_success[pokemonType], false);
-        $("#poke-select").select2("val", "0");
+        var selectedVersion = $("#version-select").select2("data")[0].id;
+        if (selectedVersion === "") {
+          $("#type-select-tooltip").tooltip("show");
+          $("#type-select").val(null).trigger("change");
+        } else {
+          //var pokemonType = e.params.data.id;
+          var pokemonType = $(this).val();
+          if (pokemonType !== "" && pokemonType) {
+            $("#currently_hunting").text(
+              "Currently Hunting: " +
+                $("#type-select").select2("data")[0].text +
+                " Type Pokemon"
+            );
+            if (selectedVersion === "scarlet") {
+              pokeToggleCustom(type_success_scarlet[pokemonType], false);
+            } else {
+              pokeToggleCustom(type_success_violet[pokemonType], false);
+            }
+            $("#poke-select").select2("val", "0");
+          }
+        }
       });
 
       $("#changelog_content").hide();
@@ -939,7 +1028,15 @@
     }
   </script>
   <script type="text/javascript" src="./js/pmarkers.js"></script>
-  <script type="text/javascript" src="./js/pokemon_calculated.js"></script>
-  <script type="text/javascript" src="./js/type_success.js"></script>
+  <script
+    type="text/javascript"
+    src="./js/pokemon_calculated_scarlet.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="./js/pokemon_calculated_violet.js"
+  ></script>
+  <script type="text/javascript" src="./js/type_success_scarlet.js"></script>
+  <script type="text/javascript" src="./js/type_success_violet.js"></script>
   <script type="text/javascript" src="./js/version_exclusive_sets.js"></script>
 </html>
