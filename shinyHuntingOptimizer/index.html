@@ -989,9 +989,8 @@
           var type_tooltip = "";
           for (var type_tuple in types) {
             [pk_type, type_eff] = types[type_tuple];
-            type_tooltip += pk_type + "&nbsp;" + type_eff + "%" + "<br>";
+            type_tooltip += pk_type + "&nbsp;" + type_eff + "% <br>";
           }
-          console.log(type_tooltip);
           L.marker(cvert(pmarkers[pmarker_area_id].coords), {
             icon: pmarkers[pmarker_area_id].icon,
             tableID: pmarkers[pmarker_area_id].tableId,
