@@ -987,12 +987,17 @@
         var area_id_eff_dict = areaIndexList[i];
         for (var pmarker_area_id in area_id_eff_dict) {
           var types = area_id_eff_dict[pmarker_area_id];
+          var type_tooltip = "";
+          for (var type_tuple in types) {
+            [pk_type, type_eff] = types[type_tuple];
+            type_tooltip += pk_type + "&nbsp;" + type_eff + "%" + "<br/>";
+          }
           L.marker(cvert(pmarkers[pmarker_area_id].coords), {
             icon: pmarkers[pmarker_area_id].icon,
             tableID: pmarkers[pmarker_area_id].tableId,
           })
             .addTo(layPokeFilter)
-            .bindTooltip(types);
+            .bindTooltip(type_tooltip);
           if (drawRank == true) {
             L.marker(cvert(pmarkers[pmarker_area_id].coords), {
               tableID: pmarkers[pmarker_area_id].tableId,
@@ -1008,7 +1013,7 @@
               }),
             })
               .addTo(layPokeFilter)
-              .bindTooltip(types);
+              .bindTooltip(type_tooltip);
           }
         }
         rank++;
