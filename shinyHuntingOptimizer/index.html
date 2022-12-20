@@ -996,7 +996,7 @@
             tableID: pmarkers[pmarker_area_id].tableId,
           })
             .addTo(layPokeFilter)
-            .bindTooltip(types);
+            .bindTooltip(type_tooltip);
           if (drawRank == true) {
             L.marker(cvert(pmarkers[pmarker_area_id].coords), {
               tableID: pmarkers[pmarker_area_id].tableId,
@@ -1012,7 +1012,7 @@
               }),
             })
               .addTo(layPokeFilter)
-              .bindTooltip(types);
+              .bindTooltip(type_tooltip);
           }
         }
         rank++;
