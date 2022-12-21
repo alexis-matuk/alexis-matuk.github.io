@@ -120,7 +120,7 @@
       <div id="title" class="row justify-content-center mb-4">
         <h1 class="px-4">Isolated Encounter Shiny Hunting Optimizer</h1>
       </div>
-      <div class="row justify-content-center mb-4">
+      <div class="instructions row justify-content-center mb-4">
         <b>0. Select game version</b>
       </div>
       <div class="row justify-content-center mb-4">
@@ -137,7 +137,7 @@
           </select>
         </div>
       </div>
-      <div id="intro" class="row justify-content-center mb-4">
+      <div class="instructions row justify-content-center mb-4">
         <div class="col-md-4">
           <ol>
             <b>Find Efficiency of Pokemon</b>
@@ -642,7 +642,7 @@
         </div>
         <div
           id="hunting_area_data"
-          class="col-md-3 justify-content-left text-left"
+          class="instructions col-md-3 justify-content-left text-left"
           style="text-transform: capitalize"
         ></div>
       </div>
@@ -878,7 +878,7 @@
         if (checked) {
           $("body").addClass("dark_mode_bg");
           $("#title").addClass("dark_mode_text");
-          $("#intro").addClass("dark_mode_text");
+          $(".instructions").addClass("dark_mode_text");
           $("#disclaimer").addClass("dark_mode_text");
           $("#changelog_title").addClass("dark_mode_text");
           $("#changelog_body").addClass("dark_mode_text");
@@ -886,7 +886,7 @@
         } else {
           $("body").removeClass("dark_mode_bg");
           $("#title").removeClass("dark_mode_text");
-          $("#intro").removeClass("dark_mode_text");
+          $(".instructions").removeClass("dark_mode_text");
           $("#disclaimer").removeClass("dark_mode_text");
           $("#changelog_title").removeClass("dark_mode_text");
           $("#changelog_body").removeClass("dark_mode_text");
