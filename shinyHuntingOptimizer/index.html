@@ -636,9 +636,15 @@
         </div>
       </div>
       <div class="row justify-content-center text-center">
+        <div class="col-md-3 justify-content-center text-center"></div>
         <div class="col-md-6 justify-content-center text-center">
           <div id="map" style="margin: auto"></div>
         </div>
+        <div
+          id="hunting_area_data"
+          class="col-md-3 justify-content-left text-left"
+          style="text-transform: capitalize"
+        ></div>
       </div>
       <div id="disclaimer" class="row justify-content-center">
         <p>
@@ -671,6 +677,21 @@
       </div>
       <div id="changelog_body" class="row justify-content-center mb-4">
         <div class="col-md-8">
+          <div class="row mb-4">
+            <h3>2.3.0</h3>
+          </div>
+          <div class="row mb-4">
+            <ul>
+              <li>
+                Fixed area calculation issue with scatterbug and sawsbuck's
+                different forms.
+              </li>
+              <li>
+                When clicking an area in the map you can now see the other
+                pokemon that spawn in that same area.
+              </li>
+            </ul>
+          </div>
           <div class="row mb-4">
             <h3>2.2.0</h3>
           </div>
@@ -790,6 +811,7 @@
       });
 
       $("#poke-select").on("select2:select", function (e) {
+        $("#hunting_area_data").empty();
         var selectedVersion = $("#version-select").select2("data")[0].id;
         if (selectedVersion === "") {
           $("#poke-select-tooltip").tooltip("show");
@@ -812,6 +834,7 @@
       });
 
       $("#type-select").on("select2:select", function (e) {
+        $("#hunting_area_data").empty();
         var selectedVersion = $("#version-select").select2("data")[0].id;
         if (selectedVersion === "") {
           $("#type-select-tooltip").tooltip("show");
@@ -872,6 +895,65 @@
       });
     });
 
+    // load pokemon data
+    function onMapClick(e) {
+      $("#hunting_area_data").empty();
+      const tableID = e.target.options.tableID;
+      const iconRank = e.target.options.iconRank;
+
+      var selectedVersion = $("#version-select").select2("data")[0].id;
+      if (selectedVersion === "") {
+        $("#poke-select-tooltip").tooltip("show");
+        $("#poke-select").val(null).trigger("change");
+        return;
+      }
+      if (!tableID) {
+        e.target.bindPopup("TableId not found").openPopup();
+        return;
+      }
+      if (!iconRank) {
+        e.target.bindPopup("Rank not found").openPopup();
+        return;
+      }
+      $("#hunting_area_data").append(
+        "<div class='row justify-content-left text-left'><h4>Pokemon for marker: " +
+          iconRank +
+          "<h4></div>"
+      );
+      var pokemon_in_area = null;
+      var pokemon_types = null;
+
+      var pokemonName = $("#poke-select").val();
+
+      if (selectedVersion == "scarlet") {
+        pokemon_in_area = area_type_pokemon_scarlet[tableID];
+        if (pokemonName !== "" && pokemonName) {
+          pokemon_types = pokemon_info[pokemonName];
+        }
+      } else {
+        pokemon_in_area = area_type_pokemon_violet[tableID];
+        if (pokemonName !== "" && pokemonName) {
+          pokemon_types = pokemon_info[pokemonName];
+        }
+      }
+      var textResult = "";
+      textResult += "<div class='row'>";
+      for (var t in pokemon_types) {
+        var pk_type = pokemon_types[t];
+        textResult += "<div class='col'>";
+        textResult += "<h4><b>" + pk_type + "</b></h4><br>";
+        for (var pk in pokemon_in_area[pk_type]) {
+          [pkName, pkTypeList] = pokemon_in_area[pk_type][pk];
+          textResult += pkName + "<br>";
+        }
+        textResult += "</div>";
+        textResult += "<br>";
+      }
+      textResult += "</div>";
+
+      $("#hunting_area_data").append(textResult);
+    }
+
     // Initialize the map
     var map = L.map("map", {
       minZoom: 1,
@@ -900,20 +982,6 @@
       Number.prototype.toRad = function () {
         return (this * Math.PI) / 180;
       };
-    }
-
-    function getTileURL(lat, lon, zoom) {
-      let xtile = parseInt(Math.floor(((lon + 180) / 360) * (1 << zoom)));
-      let ytile = parseInt(
-        Math.floor(
-          ((1 -
-            Math.log(Math.tan(lat.toRad()) + 1 / Math.cos(lat.toRad())) /
-              Math.PI) /
-            2) *
-            (1 << zoom)
-        )
-      );
-      return zoom + "/" + xtile + "/" + ytile;
     }
 
     var southWest = map.unproject([0, 4096], map.getMaxZoom());
@@ -1000,6 +1068,7 @@
           if (drawRank == true) {
             L.marker(cvert(pmarkers[pmarker_area_id].coords), {
               tableID: pmarkers[pmarker_area_id].tableId,
+              iconRank: rank + 1,
               icon: new L.DivIcon({
                 iconAnchor: L.point(5, 17),
                 className: "my-div-icon",
@@ -1012,7 +1081,8 @@
               }),
             })
               .addTo(layPokeFilter)
-              .bindTooltip(type_tooltip);
+              .bindTooltip(type_tooltip)
+              .on("click", onMapClick);
           }
         }
         rank++;
@@ -1032,6 +1102,7 @@
     }
   </script>
   <script type="text/javascript" src="./js/pmarkers.js"></script>
+  <script type="text/javascript" src="./js/pokemon_info.js"></script>
   <script
     type="text/javascript"
     src="./js/pokemon_calculated_scarlet.js"
@@ -1042,5 +1113,13 @@
   ></script>
   <script type="text/javascript" src="./js/type_success_scarlet.js"></script>
   <script type="text/javascript" src="./js/type_success_violet.js"></script>
+  <script
+    type="text/javascript"
+    src="./js/area_type_pokemon_scarlet.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="./js/area_type_pokemon_violet.js"
+  ></script>
   <script type="text/javascript" src="./js/version_exclusive_sets.js"></script>
 </html>
