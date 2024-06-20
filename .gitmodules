@@ -1,0 +1,3 @@
+[submodule "salvations-edge-verity-calc"]
+	path = salvations-edge-verity-calc
+	url = https://github.com/alexis-matuk/salvations-edge-verity.git
